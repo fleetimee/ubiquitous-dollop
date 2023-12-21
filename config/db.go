@@ -4,11 +4,13 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
+var DBPostgres *gorm.DB
 
 func Connect() {
 	err := godotenv.Load("../.env")
@@ -36,4 +38,32 @@ func Connect() {
 	println("Connection to database success")
 
 	DB = db
+}
+
+func ConnectPostgres() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		panic("failed to load env file")
+	}
+
+	// Mapping variable from .env file
+	host := os.Getenv("PG_DB_HOST")
+	port := os.Getenv("PG_DB_PORT")
+	user := os.Getenv("PG_DB_USER")
+	pass := os.Getenv("PG_DB_PASSWORD")
+	dbname := os.Getenv("PG_DB_NAME")
+
+	// Create connection string postgres
+	dsn := "host=" + host + " user=" + user + " password=" + pass + " dbname=" + dbname + " port=" + port + " sslmode=disable TimeZone=Asia/Jakarta"
+
+	// Open connection to database
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	// Print something if connection success
+	println("Connection to database success")
+
+	DBPostgres = db
 }

@@ -7,5 +7,6 @@ import (
 
 func main() {
 	config.Connect()
+	config.ConnectPostgres()
 	routes.FetcherRoutes()
 }
