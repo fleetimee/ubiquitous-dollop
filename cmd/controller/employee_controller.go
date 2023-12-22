@@ -46,7 +46,6 @@ func FetchAllEmployeeAndSendToPostgres(ctx *gin.Context) {
 	}
 
 	response := map[string]interface{}{
-		"message":       ":)",
 		"elapsed_time":  elapsedTime.String(),
 		"rows_inserted": insertedRows,
 		"rows_deleted":  deletedRows,

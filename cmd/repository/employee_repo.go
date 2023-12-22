@@ -35,7 +35,7 @@ func FetchAllEmployeeAndSendToPostgres() (int64, int64, error) {
 
 	tx := init.Begin()
 
-	result := tx.Exec("TRUNCATE TABLE master")
+	result := tx.Exec("DELETE from struktur_organisasi")
 	if result.Error != nil {
 		tx.Rollback()
 		return 0, 0, result.Error
@@ -43,7 +43,7 @@ func FetchAllEmployeeAndSendToPostgres() (int64, int64, error) {
 	deletedRows := result.RowsAffected
 
 	queryInsert := `
-	INSERT INTO public.master (email, kd_kantor, soid, mastersoid, jabatan, sts_jabatan, unitkerja)
+	INSERT INTO struktur_organisasi (email, kd_kantor, soid, mastersoid, jabatan, sts_jabatan, unitkerja)
 	VALUES (?, ?, ?, ?, ?, ?, ?)
 	`
 	var insertedRows int64
