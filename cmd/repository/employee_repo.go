@@ -44,12 +44,13 @@ func FetchAllEmployeeAndSendToPostgres() (int64, int64, error) {
 
 	queryInsert := `
 	INSERT INTO struktur_organisasi (email, kd_kantor, soid, mastersoid, jabatan, sts_jabatan, unitkerja)
-	VALUES (?, ?, ?, ?, ?, ?, ?)
+	VALUES 
 	`
-	var insertedRows int64
+	values := []interface{}{}
 	for _, employee := range employees {
-		result := tx.Exec(
-			queryInsert,
+		queryInsert += "(?, ?, ?, ?, ?, ?, ?),"
+		values = append(
+			values,
 			employee.EMAIL,
 			employee.KD_KANTOR,
 			employee.SOID,
@@ -58,12 +59,16 @@ func FetchAllEmployeeAndSendToPostgres() (int64, int64, error) {
 			employee.STS_JABATAN,
 			employee.UNITKERJA,
 		)
-		if result.Error != nil {
-			tx.Rollback()
-			return 0, 0, result.Error
-		}
-		insertedRows += result.RowsAffected
 	}
+	// Remove the last comma
+	queryInsert = queryInsert[:len(queryInsert)-1]
+
+	result = tx.Exec(queryInsert, values...)
+	if result.Error != nil {
+		tx.Rollback()
+		return 0, 0, result.Error
+	}
+	insertedRows := result.RowsAffected
 
 	if err := tx.Commit().Error; err != nil {
 		return 0, 0, err
