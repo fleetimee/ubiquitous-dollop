@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -11,11 +10,11 @@ import (
 	"path/filepath"
 	"service-fleetime/cmd/controller"
 	"service-fleetime/cmd/helpers"
-	"strings"
+	"service-fleetime/cmd/lib"
+	"service-fleetime/cmd/middleware"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm/logger"
 )
 
@@ -48,8 +47,6 @@ func ClearDirectory(dir string) error {
 
 type Config map[string]string
 
-var mySigningKey = []byte("secret")
-
 func FetcherRoutes() {
 
 	configFile, err := ioutil.ReadFile("../client.json")
@@ -64,12 +61,8 @@ func FetcherRoutes() {
 
 	fmt.Println(config)
 
-	// Disable Console Color, you don't need console color when writing the logs to file.
-	gin.DisableConsoleColor()
-
-	// Logging to a file.
 	f, _ := os.Create("../static/gin.log")
-	gin.DefaultWriter = io.MultiWriter(f)
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
 	r := gin.Default()
 
@@ -109,32 +102,6 @@ func FetcherRoutes() {
 		helpers.APIResponse(c, "Logs Cleared", http.StatusOK, nil)
 	})
 
-	authMiddleware := func(c *gin.Context) {
-		tokenString := c.GetHeader("Authorization")
-
-		// Remove the "Bearer " prefix
-		if len(tokenString) > 7 && strings.ToUpper(tokenString[0:7]) == "BEARER " {
-			tokenString = tokenString[7:]
-		}
-
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return mySigningKey, nil
-		})
-
-		if token != nil && token.Valid {
-			c.Next()
-		} else if errors.Is(err, jwt.ErrTokenMalformed) {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "That's not even a token"})
-		} else if errors.Is(err, jwt.ErrTokenSignatureInvalid) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid signature"})
-		} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Timing is everything"})
-		} else {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Couldn't handle this token: " + err.Error()})
-		}
-		c.Abort()
-	}
-
 	r.POST("/token-client", func(c *gin.Context) {
 		var reqConfig Config
 		if err := c.ShouldBindJSON(&reqConfig); err != nil {
@@ -162,28 +129,30 @@ func FetcherRoutes() {
 		if configValue, ok := config[reqKey]; ok {
 			if reqValue == configValue {
 				// generate and return JWT token
-				expirationTime := time.Now().Add(5 * time.Second).Unix()
-				token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-					"app_id": reqKey,
-					"sub":    "service-fleetime",
-					"exp":    expirationTime,
-				})
-				tokenString, err := token.SignedString(mySigningKey)
+				tokenString, creationTime, expirationTime, err := lib.GenerateJWT(reqKey)
 				if err != nil {
 					c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generating token"})
 					return
 				}
 
-				c.JSON(http.StatusOK, gin.H{"token": tokenString})
+				// c.JSON(http.StatusOK, gin.H{"token": tokenString})
+
+				helpers.APIResponse(c, "Authorized", http.StatusOK, gin.H{
+					"token":           tokenString,
+					"creation_time":   creationTime.Format(time.RFC3339),
+					"expiration_time": expirationTime.Format(time.RFC3339),
+				})
 				return
 			}
+
+			helpers.APIResponse(c, "Invalid app id or key", http.StatusUnauthorized, nil)
 		}
 
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid app id or key"})
+		helpers.APIResponse(c, "Unknown error", http.StatusUnauthorized, nil)
 	})
 
 	r.GET("/fetcher", controller.GetData)
-	r.GET("/fetcher/all", authMiddleware, controller.FetchAllEmployee)
+	r.GET("/fetcher/all", middleware.AuthMiddleware(), controller.FetchAllEmployee)
 	r.GET("/fetcher/all/send", controller.FetchAllEmployeeAndSendToPostgres)
 
 	r.Run(":8080")
