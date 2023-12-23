@@ -1,17 +1,1 @@
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
-[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
-[GIN-debug] GET    /clear-static             --> service-fleetime/cmd/routes.FetcherRoutes.func1 (3 handlers)
-[GIN-debug] POST   /token-client             --> service-fleetime/cmd/routes.FetcherRoutes.func2 (3 handlers)
-[GIN-debug] GET    /fetcher                  --> service-fleetime/cmd/controller.GetData (3 handlers)
-[GIN-debug] GET    /fetcher/all              --> service-fleetime/cmd/controller.FetchAllEmployee (4 handlers)
-[GIN-debug] GET    /fetcher/all/send         --> service-fleetime/cmd/controller.FetchAllEmployeeAndSendToPostgres (3 handlers)
-[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
-Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
-[GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2023/12/23 - 10:59:35 | 200 |         513µs |             ::1 | POST     "/token-client"
+[GIN] 2023/12/23 - 12:37:25 | 200 |       646.3µs |             ::1 | POST     "/token-client"

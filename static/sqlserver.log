@@ -1,6 +1,6 @@
 
-2023/12/23 10:47:28 E:/Development/golang/service-fleetime/config/db.go:46
+2023/12/23 12:37:15 E:/Development/golang/service-fleetime/config/db.go:46
 [info] replacing callback `gorm:create` from E:/Development/golang/service-fleetime/config/db.go:46
 
-2023/12/23 10:47:28 E:/Development/golang/service-fleetime/config/db.go:46
+2023/12/23 12:37:15 E:/Development/golang/service-fleetime/config/db.go:46
 [info] replacing callback `gorm:update` from E:/Development/golang/service-fleetime/config/db.go:46
