@@ -5,7 +5,6 @@ import (
 	"service-fleetime/cmd/helpers"
 	"service-fleetime/cmd/models"
 	"service-fleetime/cmd/repository"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,23 +32,23 @@ func FetchAllEmployee(ctx *gin.Context) {
 	helpers.APIResponse(ctx, "Success", http.StatusOK, employee)
 }
 
-func FetchAllEmployeeAndSendToPostgres(ctx *gin.Context) {
-	startTime := time.Now()
+// func FetchAllEmployeeAndSendToPostgres(ctx *gin.Context) {
+// 	startTime := time.Now()
 
-	insertedRows, deletedRows, err := repository.FetchAllEmployeeAndSendToPostgres()
+// 	insertedRows, deletedRows, err := repository.FetchAllEmployeeAndSendToPostgres()
 
-	elapsedTime := time.Since(startTime)
+// 	elapsedTime := time.Since(startTime)
 
-	if err != nil {
-		helpers.ErrorResponse(ctx, err.Error())
-		return
-	}
+// 	if err != nil {
+// 		helpers.ErrorResponse(ctx, err.Error())
+// 		return
+// 	}
 
-	response := map[string]interface{}{
-		"elapsed_time":  elapsedTime.String(),
-		"rows_inserted": insertedRows,
-		"rows_deleted":  deletedRows,
-	}
+// 	response := map[string]interface{}{
+// 		"elapsed_time":  elapsedTime.String(),
+// 		"rows_inserted": insertedRows,
+// 		"rows_deleted":  deletedRows,
+// 	}
 
-	helpers.APIResponse(ctx, "Success", http.StatusOK, response)
-}
+// 	helpers.APIResponse(ctx, "Success", http.StatusOK, response)
+// }
