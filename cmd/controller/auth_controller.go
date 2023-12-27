@@ -20,12 +20,8 @@ func GetToken(c *gin.Context) {
 		panic(err)
 	}
 
-	fmt.Println(string(configFile))
-
 	var config Config
 	json.Unmarshal(configFile, &config)
-
-	fmt.Println(config)
 
 	var reqConfig Config
 	if err := c.ShouldBindJSON(&reqConfig); err != nil {

@@ -2,6 +2,7 @@ package models
 
 type Employee struct {
 	EMAIL       string `json:"email"`
+	NAMA        string `json:"nama"`
 	KD_KANTOR   string `json:"kd_kantor"`
 	SOID        int    `json:"soid"`
 	MASTERSOID  int    `json:"master_soid"`

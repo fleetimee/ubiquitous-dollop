@@ -1,0 +1,6 @@
+2023/12/27 16:36:14 Error parsing token: token is malformed: token contains an invalid number of segments
+2023/12/27 16:36:24 Error parsing token: token is malformed: could not base64 decode header: illegal base64 data at input byte 6
+2023/12/27 16:36:48 Error parsing token: token is malformed: could not base64 decode header: illegal base64 data at input byte 6
+2023/12/27 16:39:08 Error parsing token: token has invalid claims: token is expired
+2023/12/27 16:40:11 Error: Authorization header is not correctly formatted
+2023/12/27 16:40:20 App ID: lms-app Accessed Endpoint: /employees

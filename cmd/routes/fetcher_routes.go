@@ -3,6 +3,7 @@ package routes
 import (
 	"io"
 	"os"
+	"service-fleetime/cmd/middleware"
 	"service-fleetime/cmd/routes/client"
 	notfound "service-fleetime/cmd/routes/not-found"
 	"service-fleetime/cmd/routes/utilities"
@@ -21,6 +22,8 @@ func FetcherRoutes() {
 	// gin.SetMode("release")
 
 	r := gin.Default()
+
+	r.Use(middleware.LoggingMiddleware())
 
 	// NO ROUTES FOUND
 	notfound.Roadblock(r)

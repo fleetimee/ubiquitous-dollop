@@ -1,11 +1,11 @@
 
-2023/12/27 08:27:30 E:/Development/Golang/service-fleetime/config/db.go:46
+2023/12/27 16:40:08 E:/Development/Golang/service-fleetime/config/db.go:46
 [info] replacing callback `gorm:create` from E:/Development/Golang/service-fleetime/config/db.go:46
 
-2023/12/27 08:27:30 E:/Development/Golang/service-fleetime/config/db.go:46
+2023/12/27 16:40:08 E:/Development/Golang/service-fleetime/config/db.go:46
 [info] replacing callback `gorm:update` from E:/Development/Golang/service-fleetime/config/db.go:46
 
-2023/12/27 08:31:00 E:/Development/Golang/service-fleetime/cmd/repository/employee_repo.go:16
-[645.068ms] [rows:998] 
+2023/12/27 16:40:21 E:/Development/Golang/service-fleetime/cmd/repository/employee_repo.go:16
+[663.845ms] [rows:998] 
 	SELECT * from db_HRMIS.dbo.uf_StrukturOrganisasi();
 	

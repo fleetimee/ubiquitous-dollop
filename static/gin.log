@@ -4,17 +4,12 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /static/*filepath         --> service-fleetime/cmd/controller.ServeStatic (4 handlers)
-[GIN-debug] GET    /clear-static             --> service-fleetime/cmd/controller.ClearLog (4 handlers)
-[GIN-debug] POST   /token-client             --> service-fleetime/cmd/controller.GetToken (3 handlers)
-[GIN-debug] GET    /fetcher/all              --> service-fleetime/cmd/controller.FetchAllEmployee (4 handlers)
+[GIN-debug] GET    /static/*filepath         --> service-fleetime/cmd/controller.ServeStatic (5 handlers)
+[GIN-debug] GET    /clear-static             --> service-fleetime/cmd/controller.ClearLog (5 handlers)
+[GIN-debug] POST   /token-client             --> service-fleetime/cmd/controller.GetToken (4 handlers)
+[GIN-debug] GET    /employees                --> service-fleetime/cmd/controller.FetchAllEmployee (5 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :1337
-[GIN] 2023/12/27 - 08:29:32 | 401 |       505.4µs |             ::1 | GET      "/static/gin.log"
-[GIN] 2023/12/27 - 08:29:48 | 200 |     61.5005ms |             ::1 | GET      "/static/jwt.log"
-[GIN] 2023/12/27 - 08:30:14 | 401 |            0s |             ::1 | GET      "/fetcher/all"
-[GIN] 2023/12/27 - 08:30:19 | 200 |       994.7µs |             ::1 | GET      "/static/jwt.log"
-[GIN] 2023/12/27 - 08:30:50 | 200 |       1.769ms |             ::1 | POST     "/token-client"
-[GIN] 2023/12/27 - 08:31:00 | 200 |    646.1564ms |             ::1 | GET      "/fetcher/all"
-[GIN] 2023/12/27 - 08:31:09 | 200 |            0s |             ::1 | GET      "/static/jwt.log"
+[GIN] 2023/12/27 - 16:40:11 | 200 |       573.3µs |             ::1 | POST     "/token-client"
+[GIN] 2023/12/27 - 16:40:21 | 200 |    665.9478ms |             ::1 | GET      "/employees"
