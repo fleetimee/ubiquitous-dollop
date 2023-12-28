@@ -11,5 +11,7 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :1337
-[GIN] 2023/12/27 - 16:40:11 | 200 |       573.3µs |             ::1 | POST     "/token-client"
-[GIN] 2023/12/27 - 16:40:21 | 200 |    665.9478ms |             ::1 | GET      "/employees"
+[GIN] 2023/12/28 - 08:04:48 | 200 |      1.5658ms |             ::1 | POST     "/token-client"
+[GIN] 2023/12/28 - 08:04:49 | 200 |    651.0214ms |             ::1 | GET      "/employees"
+[GIN] 2023/12/28 - 08:05:15 | 200 |       520.1µs |             ::1 | POST     "/token-client"
+[GIN] 2023/12/28 - 08:05:16 | 200 |    708.0903ms |             ::1 | GET      "/employees"

@@ -4,3 +4,7 @@
 2023/12/27 16:39:08 Error parsing token: token has invalid claims: token is expired
 2023/12/27 16:40:11 Error: Authorization header is not correctly formatted
 2023/12/27 16:40:20 App ID: lms-app Accessed Endpoint: /employees
+2023/12/28 08:04:48 Error: Authorization header is not correctly formatted
+2023/12/28 08:04:48 App ID: lms-app Accessed Endpoint: /employees
+2023/12/28 08:05:15 Error: Authorization header is not correctly formatted
+2023/12/28 08:05:15 App ID: lms-app Accessed Endpoint: /employees
